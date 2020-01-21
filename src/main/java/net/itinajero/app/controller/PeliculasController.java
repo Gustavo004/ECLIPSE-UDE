@@ -19,12 +19,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import net.itinajero.app.model.Pelicula;
+import net.itinajero.app.service.IDetallesService;
 import net.itinajero.app.service.IPeliculasService;
 import net.itinajero.app.util.Utileria;
 
 @Controller
 @RequestMapping("/peliculas")
 public class PeliculasController {
+	
+	@Autowired
+	private IDetallesService serviceDetalles;
+	
+	
 	
 	@Autowired
 	private IPeliculasService servicePeliculas;
@@ -56,6 +62,12 @@ public class PeliculasController {
 			String nombreImagen = Utileria.guardarImagen(multiPart,request);
 			pelicula.setImagen(nombreImagen);
 		}
+		
+		System.out.println("Antes de la inserceccion : "+pelicula.getDetalle() );
+		
+		serviceDetalles.insertar(pelicula.getDetalle() );
+		
+		System.out.println("Despues de la inserceccion : "+pelicula.getDetalle() );
 		
 		servicePeliculas.insertar(pelicula);	
     	attributes.addFlashAttribute("mensaje", "El registro fue guardado");		
