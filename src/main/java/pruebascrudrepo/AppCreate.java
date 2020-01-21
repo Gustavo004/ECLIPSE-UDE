@@ -1,42 +1,29 @@
-package pruebasJPA;
-
-import java.util.LinkedList;
-import java.util.List;
+package pruebascrudrepo;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import net.itinajero.app.model.Noticia;
 import net.itinajero.app.repository.NoticiasRepository;
 
-public class AppFindAllById {
+public class AppCreate {
 
 	public static void main(String[] args) {
+			
+		Noticia noticia = new Noticia();
 		
-
+		noticia.setTitulo("Proximo Estreno de Avengers");
+		noticia.setDetalle("el mes proxima sale disfrutelo en la mejores salas che ");
 		
 		ClassPathXmlApplicationContext context  = new ClassPathXmlApplicationContext("root-context.xml");
 		
 		NoticiasRepository repo = context.getBean("noticiasRepository",NoticiasRepository.class);
 		
+		repo.save(noticia);
 		
-		//Recuperar varios registros por ID [Metodo findAllById del repositorio]
-		
-		
-		List<Integer>ids = new  LinkedList<Integer>();
-		
-		ids.add(2);
-		ids.add(5);
-		ids.add(8);
-		
-		Iterable<Noticia> it =repo.findAllById(ids);
-		
-		
-		for (Noticia n : it) {
-			System.out.println(n);
-		}
-			
 		context.close();
 		
+
+
 	}
 
 }

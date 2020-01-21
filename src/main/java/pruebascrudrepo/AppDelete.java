@@ -1,31 +1,33 @@
-package pruebasJPA;
-
-import java.util.Optional;
+package pruebascrudrepo;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import net.itinajero.app.model.Noticia;
 import net.itinajero.app.repository.NoticiasRepository;
 
-public class AppRead {
+public class AppDelete {
 
 	public static void main(String[] args) {
-		
-		
+	
 		
 		ClassPathXmlApplicationContext context  = new ClassPathXmlApplicationContext("root-context.xml");
 		
 		NoticiasRepository repo = context.getBean("noticiasRepository",NoticiasRepository.class);
 		
-		Optional<Noticia> noticia = repo.findById(1);
 		
-		System.out.println(noticia.get() );
+		//Operacion CRUD - Delete [metodo deleteById del repositorio]
+		
+		int idNoticia=1;	
+		
+		//repo.deleteById(idNoticia);
 		
 		
-		context.close();	
+		if (repo.existsById(idNoticia)) {
+			
+			repo.deleteById(idNoticia);
+			
+		}
+		context.close();
 		
-		
-
 	}
 
 }

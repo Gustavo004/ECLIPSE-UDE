@@ -1,32 +1,31 @@
-package pruebasJPA;
+package pruebascrudrepo;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import net.itinajero.app.model.Noticia;
+import com.sun.xml.bind.CycleRecoverable.Context;
+
 import net.itinajero.app.repository.NoticiasRepository;
 
-public class AppFindAll {
+public class AppDeleteAll {
 
 	public static void main(String[] args) {
 		
 		
-		
+
 		ClassPathXmlApplicationContext context  = new ClassPathXmlApplicationContext("root-context.xml");
 		
 		NoticiasRepository repo = context.getBean("noticiasRepository",NoticiasRepository.class);
 		
+		//Borrar todos los registros[metodo deleteAll del repositorio]
+		//Alerta ES UN METODO MUY PELIGROSO !!! USARLO CON CUIDADO  CON EMPLEADOS QUE ESTAN POR RENUNCIAR 
 		
-		//Recuperar todos los registros [Metodo FindAll del repositorio]
-
 		
-		Iterable<Noticia> it = repo.findAll(); //--> ESTO ES UNA COLECION SIGNIFICA QUE LO PODEMOS RECORRER
+		repo.deleteAll();
 		
-		for (Noticia n : it) {
-				System.out.println(n);
-		}
+		
+		
 		
 		context.close();
-		
 	}
 
 }

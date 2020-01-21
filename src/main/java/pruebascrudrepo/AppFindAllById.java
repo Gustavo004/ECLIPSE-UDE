@@ -1,44 +1,42 @@
-package pruebasJPA;
+package pruebascrudrepo;
 
-import java.util.Optional;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import net.itinajero.app.model.Noticia;
 import net.itinajero.app.repository.NoticiasRepository;
 
-public class AppUpdate {
+public class AppFindAllById {
 
 	public static void main(String[] args) {
-	
 		
+
 		
 		ClassPathXmlApplicationContext context  = new ClassPathXmlApplicationContext("root-context.xml");
 		
 		NoticiasRepository repo = context.getBean("noticiasRepository",NoticiasRepository.class);
 		
-		//Operacion Update ;
-		//1. Primero buscamos la entidad que vamos a editar(findById)
+		
+		//Recuperar varios registros por ID [Metodo findAllById del repositorio]
 		
 		
-		Optional<Noticia> optional= repo.findById(1);
+		List<Integer>ids = new  LinkedList<Integer>();
+		
+		ids.add(2);
+		ids.add(5);
+		ids.add(8);
+		
+		Iterable<Noticia> it =repo.findAllById(ids);
 		
 		
-		//2. Modificamos la entidad y la guardamos 
-		
-		if (optional.isPresent() ) {
-			Noticia noticia = optional.get();
-			
-			System.out.println(noticia);
-			
-			noticia.setEstatus("Inactiva");
-			
-			repo.save(noticia);
-			
+		for (Noticia n : it) {
+			System.out.println(n);
 		}
-
+			
 		context.close();
-
+		
 	}
 
 }

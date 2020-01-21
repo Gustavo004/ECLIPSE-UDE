@@ -1,27 +1,32 @@
-package pruebasJPA;
+package pruebasjparepo;
+
+import java.util.List;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import net.itinajero.app.model.Noticia;
 import net.itinajero.app.repository.NoticiasRepository;
 
-public class AppCount {
+public class AppFindAll {
 
 	public static void main(String[] args) {
+		
 		
 		
 		ClassPathXmlApplicationContext context  = new ClassPathXmlApplicationContext("root-context.xml");
 		
 		NoticiasRepository repo = context.getBean("noticiasRepository",NoticiasRepository.class);
 		
-		//Contar numeros de registros en la tabla [metodo count() del repositorio]
+		//obtener todas las entidades[metodo findAll]
 		
-		long num = repo.count();
+		List <Noticia> lista = repo.findAll();
 		
-		System.out.print("Se encontraron" +" " +num +" " +"Registros");
+		for (Noticia n : lista) {
+			
+			System.out.println(n);
+		}
 		
-		
-	  context.close();
+		context.close();
 
 	}
-
 }
